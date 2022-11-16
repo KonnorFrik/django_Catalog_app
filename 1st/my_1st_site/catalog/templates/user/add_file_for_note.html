@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog upload</title>
+</head>
+<body>
+    {% if user %}
+    <label class="whois">User: {{ user.username }}</label>
+    {% endif %}
+
+    {% if message %}
+        <div class="message">
+            <h2>{{ message }}</h2>
+        </div>
+    {% endif %}
+
+    {% if note %}
+    <div class="note_info">
+        <p>Add file for note: {{ note.note_title }}</p>
+    </div>
+    {% endif %}
+
+    {% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    {% endblock %}
+
+</body>
+</html>

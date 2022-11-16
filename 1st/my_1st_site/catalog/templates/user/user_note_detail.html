@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog note</title>
+</head>
+<body>
+
+        <label class="whois">User: {{ user.username }}</label>
+        <br> <button><a href="{% url 'catalog:user_home_page' user.id %}">To home</a></button>
+
+
+    {% if message %}
+        <div class="message">
+            <h2>{{ message }}</h2>
+        </div>
+    {% endif %}
+
+
+
+        <div class="note">
+
+            <div class="note_title">
+                <h3>{{ note.note_title }}</h3>
+            </div>
+
+            <div class="note_description">
+                <p>{{ note.note_description }}</p>
+            </div>
+
+            <div class="add_files_button">
+                <form action="{% url 'catalog:add_file_for_note' user.id note.id %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit">Add file</button>
+                </form>
+            </div>
+
+            {% if note.anyfile_set.all %}
+                <label>Files:</label>
+
+<!--                <button><a href="{% url 'catalog:add_file_for_note' user.pk note.pk %}">Add file</a></button>-->
+
+                <div class="note_files">
+
+                    {% for file in note.anyfile_set.all %}
+                        <ul>
+                            <li>{{ file.title }}</li>
+                            <li><a href="{% url 'catalog:download_user_file' user.id file.id %}" >Download</a>
+                                <button><a href="{% url 'catalog:delete_file_from_note' user.id file.id %}">Delete file</a></button>
+                            </li>
+                        </ul>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+
+        </div>
+
+</body>
+</html>

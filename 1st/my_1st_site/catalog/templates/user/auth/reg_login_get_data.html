@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     <div class="message">
+        {% if message %}
+        <label class="show_message"> {{ message }} </label>
+        {% else %}
+        <label class="show_message"> Welcome to registration </label>
+        {% endif %}
+    </div>
+
+    <div class="new_user_data_enter">
+
+            <form action="{% url 'catalog:registration_loin' %}" method = "post">
+               {% csrf_token %}
+               <fieldset>
+                   {{ form.as_p }}
+                   <input name="submit_data_button" type="submit" value="Registration">
+                   <input name="submit_data_button" type="submit" value="Login">
+               </fieldset>
+            </form>
+
+    </div>
+</body>
+</html>

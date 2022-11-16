@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog upload</title>
+</head>
+<body>
+    {% if message %} <h3>{{ message }}</h3> {% else %} <h3>Files upload</h3> {% endif %}
+    {% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    {% endblock %}
+</body>
+</html>

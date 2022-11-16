@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog Home</title>
+</head>
+<body>
+    User: {{ user.username }}
+
+    <div class="logout_button">
+        <form action="{% url 'catalog:logout' %}" method="get">
+            <button>Logout</button>
+        </form>
+    </div>
+
+    <div class="upload_content">
+        <a href="{% url 'catalog:add_user_content' user.id %}">Add new note</a>
+    </div>
+
+    <div class="user_content">
+        <h4 class="user_content_title">My catalog:</h4>
+
+        {% if user.usernote_set.all %}
+        <ul>
+            {% for note in user.usernote_set.all %}
+                <li><a href="{% url 'catalog:user_note_detail' user.pk note.pk %}">{{ note.note_title }}</a>
+                    <button><a href="{% url 'catalog:delete_user_note' user.id note.id %}">Delete Note</a></button>
+                </li> <br>
+            {% endfor %}
+        </ul>
+
+        {% else %}
+        <label>Your catalog is empty</label> <br>
+        <label>Let's fill it </label> <a href="{% url 'catalog:add_user_content' user.id %}">by your thoughts!</a>
+        {% endif %}
+
+    </div>
+</body>
+</html>
